@@ -11,7 +11,7 @@ import com.esflink.starter.common.data.FlinkJobSink;
  * @since 2023/6/9 17:11
  */
 
-@FlinkSink(value = "ourea", database = "ourea", table = "ourea.company")
+@FlinkSink(value = "mysql")
 public class OureaSink implements FlinkJobSink {
 
 

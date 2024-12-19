@@ -1,7 +1,6 @@
 package com.esflink.starter.common.data;
 
 import com.alibaba.fastjson.JSONObject;
-import com.esflink.starter.common.data.DataChangeInfo.EventType;
 import com.google.common.base.CaseFormat;
 import io.debezium.data.Envelope;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
@@ -16,12 +15,13 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * mysql消息读取自定义序列化
+ * 描述
  *
- * @author zhouhongyin
- * @since 2023/3/5 22:22
+ * @author xlh
+ * @date 2024/12/19
+ * @desc
  */
-public class MysqlDeserialization implements DebeziumDeserializationSchema<DataChangeInfo> {
+public class MssqlDeserialization implements DebeziumDeserializationSchema<DataChangeInfo> {
 
     public static final String TS_MS = "ts_ms";
     public static final String BIN_FILE = "file";
@@ -29,10 +29,10 @@ public class MysqlDeserialization implements DebeziumDeserializationSchema<DataC
     public static final String BEFORE = "before";
     public static final String AFTER = "after";
     public static final String SOURCE = "source";
-    public static final EventType READ = EventType.READ;
-    public static final EventType CREATE = EventType.CREATE;
-    public static final EventType UPDATE = EventType.UPDATE;
-    public static final EventType DELETE = EventType.DELETE;
+    public static final DataChangeInfo.EventType READ = DataChangeInfo.EventType.READ;
+    public static final DataChangeInfo.EventType CREATE = DataChangeInfo.EventType.CREATE;
+    public static final DataChangeInfo.EventType UPDATE = DataChangeInfo.EventType.UPDATE;
+    public static final DataChangeInfo.EventType DELETE = DataChangeInfo.EventType.DELETE;
 
     /**
      * 反序列化数据,转为变更JSON对象
@@ -54,7 +54,7 @@ public class MysqlDeserialization implements DebeziumDeserializationSchema<DataC
         //5.获取操作类型  CREATE UPDATE DELETE
         Envelope.Operation operation = Envelope.operationFor(sourceRecord);
         String type = operation.toString().toUpperCase();
-        EventType eventType = handleEventType(type);
+        DataChangeInfo.EventType eventType = handleEventType(type);
         dataChangeInfo.setEventType(eventType);
         dataChangeInfo.setFileName(Optional.ofNullable(source.get(BIN_FILE)).map(Object::toString).orElse(""));
         dataChangeInfo.setFilePos(Optional.ofNullable(source.get(POS)).map(x -> Integer.parseInt(x.toString())).orElse(0));
@@ -67,8 +67,8 @@ public class MysqlDeserialization implements DebeziumDeserializationSchema<DataC
         collector.collect(dataChangeInfo);
     }
 
-    private EventType handleEventType(String type) {
-        EventType eventType = null;
+    private DataChangeInfo.EventType handleEventType(String type) {
+        DataChangeInfo.EventType eventType = null;
         if (type.equals(CREATE.getName()) || type.equals(READ.getName())) {
             eventType = CREATE;
         } else if (type.equals(UPDATE.getName())) {
