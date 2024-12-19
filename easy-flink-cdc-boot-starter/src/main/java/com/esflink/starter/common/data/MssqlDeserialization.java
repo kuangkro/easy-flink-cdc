@@ -56,8 +56,6 @@ public class MssqlDeserialization implements DebeziumDeserializationSchema<DataC
         String type = operation.toString().toUpperCase();
         DataChangeInfo.EventType eventType = handleEventType(type);
         dataChangeInfo.setEventType(eventType);
-        dataChangeInfo.setFileName(Optional.ofNullable(source.get(BIN_FILE)).map(Object::toString).orElse(""));
-        dataChangeInfo.setFilePos(Optional.ofNullable(source.get(POS)).map(x -> Integer.parseInt(x.toString())).orElse(0));
         dataChangeInfo.setDatabase(database);
         dataChangeInfo.setTableName(tableName);
         //Object value = struct.get(TS_MS);

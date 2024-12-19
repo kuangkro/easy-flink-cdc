@@ -164,7 +164,7 @@ public class FlinkJobConfiguration implements ApplicationContextAware, SmartInit
         org.apache.flink.cdc.connectors.base.options.StartupOptions startupOptions = null;
         // 有 cursor 信息，默认 TIMESTAMP 方式启动
         if (cursor != null) {
-            startupOptions = org.apache.flink.cdc.connectors.base.options.StartupOptions.timestamp(cursor.getStartupTimestampMillis() + 1);
+//            startupOptions = org.apache.flink.cdc.connectors.base.options.StartupOptions.timestamp(cursor.getStartupTimestampMillis() + 1);
         }
         return SqlServerSourceBuilder.SqlServerIncrementalSource.<DataChangeInfo>builder()
                 .hostname(flinkJobProperties.getHostname())

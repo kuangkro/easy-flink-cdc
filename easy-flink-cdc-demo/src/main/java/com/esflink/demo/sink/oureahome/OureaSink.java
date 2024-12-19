@@ -17,6 +17,7 @@ public class OureaSink implements FlinkJobSink {
 
     @Override
     public void invoke(DataChangeInfo value, Context context) throws Exception {
+        System.out.println("invoke:" + value);
 
     }
 
