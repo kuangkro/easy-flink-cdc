@@ -11,7 +11,7 @@ import com.esflink.starter.common.data.FlinkJobSink;
  * @since 2023/6/9 17:11
  */
 
-@FlinkSink(value = "mssql")
+@FlinkSink(value = "mssql", database = "CreditAPI", table = "dbo.Region")
 public class DemoSink implements FlinkJobSink {
 
 
