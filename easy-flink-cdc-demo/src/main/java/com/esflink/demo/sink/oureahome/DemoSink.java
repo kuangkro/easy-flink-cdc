@@ -11,28 +11,29 @@ import com.esflink.starter.common.data.FlinkJobSink;
  * @since 2023/6/9 17:11
  */
 
-@FlinkSink(value = "test1", database = "test", table = "test.user,test.apartment")
+@FlinkSink(value = "mssql", database = "CreditAPI", table = "dbo.Region")
 public class DemoSink implements FlinkJobSink {
 
 
     @Override
     public void invoke(DataChangeInfo value, Context context) throws Exception {
-
+        System.out.println("invoke:" + value);
     }
 
     @Override
     public void insert(DataChangeInfo value, Context context) throws Exception {
+        System.out.println("insert:" +value);
 
     }
 
     @Override
     public void update(DataChangeInfo value, Context context) throws Exception {
-        System.out.println(value);
+        System.out.println("update:" +value);
     }
 
     @Override
     public void delete(DataChangeInfo value, Context context) throws Exception {
-
+        System.out.println("delete:" +value);
     }
 
     @Override

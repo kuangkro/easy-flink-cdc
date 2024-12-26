@@ -11,12 +11,13 @@ import com.esflink.starter.common.data.FlinkJobSink;
  * @since 2023/6/9 17:11
  */
 
-@FlinkSink(value = "ourea", database = "ourea", table = "ourea.company")
+@FlinkSink(value = "mysql")
 public class OureaSink implements FlinkJobSink {
 
 
     @Override
     public void invoke(DataChangeInfo value, Context context) throws Exception {
+        System.out.println("invoke:" + value);
 
     }
 
