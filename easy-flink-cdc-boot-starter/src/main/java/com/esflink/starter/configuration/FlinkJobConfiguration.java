@@ -159,13 +159,14 @@ public class FlinkJobConfiguration implements ApplicationContextAware, SmartInit
      * 构造MSSQL变更数据源
      */
     private SqlServerSourceBuilder.SqlServerIncrementalSource<DataChangeInfo> buildMssqlDataChangeSource(FlinkJobProperties flinkJobProperties, FlinkJobIdentity flinkJobIdentity) {
-        MetaManager metaManager = FlinkJobBus.getMetaManager();
+        /*MetaManager metaManager = FlinkJobBus.getMetaManager();
         LogPosition cursor = metaManager.getCursor(flinkJobIdentity);
         org.apache.flink.cdc.connectors.base.options.StartupOptions startupOptions = null;
         // 有 cursor 信息，默认 TIMESTAMP 方式启动
         if (cursor != null) {
-//            startupOptions = org.apache.flink.cdc.connectors.base.options.StartupOptions.timestamp(cursor.getStartupTimestampMillis() + 1);
-        }
+            startupOptions = org.apache.flink.cdc.connectors.base.options.StartupOptions.timestamp(cursor.getStartupTimestampMillis() + 1);
+        }*/
+
         return SqlServerSourceBuilder.SqlServerIncrementalSource.<DataChangeInfo>builder()
                 .hostname(flinkJobProperties.getHostname())
                 .port(Integer.parseInt(flinkJobProperties.getPort()))
@@ -174,7 +175,8 @@ public class FlinkJobConfiguration implements ApplicationContextAware, SmartInit
                 .username(flinkJobProperties.getUsername())
                 .password(flinkJobProperties.getPassword())
                 .deserializer(new MssqlDeserialization())
-                .startupOptions(startupOptions != null ? startupOptions : flinkJobProperties.getMssqlStartupOptions())
+//                .startupOptions(startupOptions != null ? startupOptions : flinkJobProperties.getMssqlStartupOptions())
+                .startupOptions(flinkJobProperties.getMssqlStartupOptions()) //MSSQL仅支持 初始化和latest 方式
                 .build();
     }
 

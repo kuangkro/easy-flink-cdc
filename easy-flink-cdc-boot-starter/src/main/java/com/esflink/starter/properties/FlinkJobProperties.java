@@ -186,8 +186,7 @@ public class FlinkJobProperties {
         switch (startupMode.toUpperCase()) {
             case "INITIAL":
                 return org.apache.flink.cdc.connectors.base.options.StartupOptions.initial();
-            case "TIMESTAMP":
-                return org.apache.flink.cdc.connectors.base.options.StartupOptions.timestamp(startupTimestampMillis);
+            case "LATEST":
             default:
                 return org.apache.flink.cdc.connectors.base.options.StartupOptions.latest();
         }
