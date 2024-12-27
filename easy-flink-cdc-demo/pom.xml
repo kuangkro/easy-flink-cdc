@@ -3,11 +3,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
+    <!--<parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.6.13</version>
         <relativePath/>
+    </parent>-->
+    <parent>
+        <groupId>com.sjyt.base</groupId>
+        <artifactId>base.project</artifactId>
+        <version>1.0.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <artifactId>easy-flink-cdc-demo</artifactId>
@@ -26,7 +32,11 @@
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.sjyt.base</groupId>
+            <artifactId>yt.common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <dependency>
             <groupId>io.github.maskvvv</groupId>
             <artifactId>easy-flink-cdc-boot-starter</artifactId>
@@ -45,6 +55,14 @@
             <version>${spring-boot.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.doris/flink-doris-connector-1.17 -->
+        <dependency>
+            <groupId>org.apache.doris</groupId>
+            <artifactId>flink-doris-connector-1.17</artifactId>
+            <version>24.1.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
