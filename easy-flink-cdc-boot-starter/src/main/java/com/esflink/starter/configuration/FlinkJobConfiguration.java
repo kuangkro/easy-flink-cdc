@@ -177,6 +177,7 @@ public class FlinkJobConfiguration implements ApplicationContextAware, SmartInit
                 .deserializer(new MssqlDeserialization())
 //                .startupOptions(startupOptions != null ? startupOptions : flinkJobProperties.getMssqlStartupOptions())
                 .startupOptions(flinkJobProperties.getMssqlStartupOptions()) //MSSQL仅支持 初始化和latest 方式
+                .serverTimeZone(flinkJobProperties.getServerTimeZone())
                 .build();
     }
 

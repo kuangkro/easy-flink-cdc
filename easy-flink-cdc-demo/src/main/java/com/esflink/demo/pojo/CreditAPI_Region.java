@@ -13,8 +13,8 @@ import lombok.Data;
  */
 
 @Data
-public class OdsRegion {
-    private Integer regionId;
-    private Integer parentId;
-    private String regionName;
+public class CreditAPI_Region {
+    private Integer regionid;
+    private Integer parentid;
+    private String regionname;
 }
