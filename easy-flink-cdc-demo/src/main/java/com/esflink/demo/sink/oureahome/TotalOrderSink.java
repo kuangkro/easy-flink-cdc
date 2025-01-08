@@ -56,6 +56,7 @@ public class TotalOrderSink implements FlinkJobSink {
 
     /**
      * 存在问题， 变更记录的时间比当前时间多8小时
+     *
      * @param value
      * @param context
      * @throws Exception
@@ -64,11 +65,13 @@ public class TotalOrderSink implements FlinkJobSink {
     public void insert(DataChangeInfo value, Context context) throws Exception {
         System.out.println("insert:" + value);
         String afterData = value.getAfterData();
-        CreditAPI_TotalOrder source = JSONObject.parseObject(afterData, CreditAPI_TotalOrder.class);
-        log.info("{}", source);
-        OdsTotalOrder totalOrder = factory.getMapperFacade().map(source, OdsTotalOrder.class);
         List<String> data = new ArrayList<>();
-        data.add(JSONObject.toJSONString(totalOrder));
+//        CreditAPI_TotalOrder source = JSONObject.parseObject(afterData, CreditAPI_TotalOrder.class);
+//        log.info("{}", source);
+//        OdsTotalOrder totalOrder = factory.getMapperFacade().map(source, OdsTotalOrder.class);
+//        data.add(JSONObject.toJSONString(totalOrder));
+
+        data.add(afterData);
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.enableCheckpointing(30000);
         buildOptions();
@@ -80,10 +83,12 @@ public class TotalOrderSink implements FlinkJobSink {
     public void update(DataChangeInfo value, Context context) throws Exception {
         System.out.println("update:" + value);
         String afterData = value.getAfterData();
-        CreditAPI_TotalOrder source = JSONObject.parseObject(afterData, CreditAPI_TotalOrder.class);
-        OdsTotalOrder totalOrder = factory.getMapperFacade().map(source, OdsTotalOrder.class);
         List<String> data = new ArrayList<>();
-        data.add(JSONObject.toJSONString(totalOrder));
+//        CreditAPI_TotalOrder source = JSONObject.parseObject(afterData, CreditAPI_TotalOrder.class);
+//        OdsTotalOrder totalOrder = factory.getMapperFacade().map(source, OdsTotalOrder.class);
+//        data.add(JSONObject.toJSONString(totalOrder));
+
+        data.add(afterData);
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.enableCheckpointing(30000);
         buildOptions();
