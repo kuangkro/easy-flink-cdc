@@ -17,18 +17,18 @@ public class OureaSink implements FlinkJobSink {
 
     @Override
     public void invoke(DataChangeInfo value, Context context) throws Exception {
-        System.out.println("invoke:" + value);
+//        System.out.println("invoke:" + value);
 
     }
 
     @Override
     public void insert(DataChangeInfo value, Context context) throws Exception {
-
+        System.out.println("insert:" + value.getAfterData());
     }
 
     @Override
     public void update(DataChangeInfo value, Context context) throws Exception {
-        System.out.println(value);
+        System.out.println("update:" + value.getAfterData());
     }
 
     @Override
