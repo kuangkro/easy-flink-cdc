@@ -31,7 +31,8 @@ public class DorisConfig {
         DorisExecutionOptions executionOptions = DorisExecutionOptions.builder()
                 .setLabelPrefix("label-doris")
                 .setDeletable(false)
-                //.setBatchMode(true)  开启攒批写入
+                .setBatchMode(true)  //开启攒批写入
+                .setBufferFlushMaxRows(30000)
                 .setStreamLoadProp(properties)
                 .build();
 

@@ -29,7 +29,8 @@ public class DemoSink implements FlinkJobSink {
     private DorisSink.Builder<String> dorisBuilder;
     @Autowired
     private MapperFactory factory;
-    private DorisSink.Builder<String> buildOptions(){
+
+    private DorisSink.Builder<String> buildOptions() {
         DorisOptions dorisOptions = DorisOptions.builder()
                 .setFenodes("192.168.6.51:8030")
                 .setTableIdentifier("testdb.ods_region_2")
@@ -43,17 +44,17 @@ public class DemoSink implements FlinkJobSink {
 
     @Override
     public void invoke(DataChangeInfo value, Context context) throws Exception {
-        System.out.println("invoke:" + value);
+//        System.out.println("invoke:" + value);
     }
 
     @Override
     public void insert(DataChangeInfo value, Context context) throws Exception {
-        System.out.println("insert:" +value);
+        System.out.println("insert:" + value.getAfterData());
     }
 
     @Override
     public void update(DataChangeInfo value, Context context) throws Exception {
-        System.out.println("update:" +value);
+        System.out.println("update:" + value.getAfterData());
         String afterData = value.getAfterData();
         List<String> data = new ArrayList<>();
 //        CreditAPI_Region region = JSONObject.parseObject(afterData, CreditAPI_Region.class);
@@ -70,7 +71,7 @@ public class DemoSink implements FlinkJobSink {
 
     @Override
     public void delete(DataChangeInfo value, Context context) throws Exception {
-        System.out.println("delete:" +value);
+        System.out.println("delete:" + value);
     }
 
     @Override
