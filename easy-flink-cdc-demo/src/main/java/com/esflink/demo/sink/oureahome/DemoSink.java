@@ -55,11 +55,12 @@ public class DemoSink implements FlinkJobSink {
     public void update(DataChangeInfo value, Context context) throws Exception {
         System.out.println("update:" +value);
         String afterData = value.getAfterData();
-        CreditAPI_Region region = JSONObject.parseObject(afterData, CreditAPI_Region.class);
-        OdsRegion odsRegion = factory.getMapperFacade().map(region, OdsRegion.class);
         List<String> data = new ArrayList<>();
-        data.add(JSONObject.toJSONString(odsRegion));
+//        CreditAPI_Region region = JSONObject.parseObject(afterData, CreditAPI_Region.class);
+//        OdsRegion odsRegion = factory.getMapperFacade().map(region, OdsRegion.class);
+//        data.add(JSONObject.toJSONString(odsRegion));
 
+        data.add(afterData);
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.enableCheckpointing(30000);
         DorisSink.Builder<String> builder = buildOptions();
